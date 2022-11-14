@@ -27,6 +27,12 @@ The information that is required and will be printed is as follows:
 - The greatest increase in profits (date and amount)
 - The greatest decrease in losses (date and amount)
 
+### Screenshot of completed site
+
+The following image shows the web application's console
+
+![The screenshot displays the websites blank page with the console open displaying the information required](images/Console-finances.png)
+
 ### License
 
 Please refer to license in the Repo
