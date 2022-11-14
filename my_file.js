@@ -9,9 +9,9 @@ let min = 0;
 let greatestInc;
 let greatestDec;
 let totalAverage;
-
 let avgChangeArr = [];
 
+//For loop (monthArray,dataArray,profitMonths,lossMonths)
 for (let i = 0; i < finances.length; i++) {
   monthArray.push(finances[i][0]);
   dataArray.push(finances[i][1]);
@@ -22,6 +22,7 @@ for (let i = 0; i < finances.length; i++) {
   }
 }
 
+//totalCalc Function
 let totalCalc = function (data) {
   let sum = 0;
   for (const dat of data) {
@@ -30,19 +31,18 @@ let totalCalc = function (data) {
   return sum;
 };
 
+//avgMOMCalc (avgChangeArr source)
 let avgMOMCalc = function (data) {
   let sum = [];
   for (let i = 0; i < dataArray.length; i++) {
     sum.push(dataArray[i] - dataArray[i - 1]);
   }
   avgChangeArr = sum;
+  avgChangeArr.shift();
   return;
 };
 
-avgMOMCalc(dataArray);
-avgChangeArr.shift();
-
-//Increase/decrease
+//avgCal function (greatestInc/greatestDec)
 let avgCal = function (data) {
   max = Math.max(...data);
   min = Math.min(...data);
@@ -54,20 +54,27 @@ let avgCal = function (data) {
   greatestDec.join(" ");
   return;
 };
+
+//overallAvgCal function
 let overallAvgCal = function (data) {
   totalAverage = data / avgChangeArr.length;
   return;
 };
 
+//Function Calls
+avgMOMCalc(dataArray);
 totalAverage = totalCalc(avgChangeArr);
 overallAvgCal(totalAverage);
 avgCal(avgChangeArr);
+
 //Console log results
-console.log(`Game stats:\n Total Months:${numMonths}\n Total Profitable Months:${
+console.log(`Game stats:\n   ----------------------------\n Total Months:${numMonths}\n Total Profitable Months:${
   profitMonths.length
 }\n Total non Profitable Months:${
   lossMonths.length
 }\n Total Profit/Losses: £${totalCalc(
   dataArray
-)}\n Greatest Increase by month: ${greatestInc} (Change from prior month $${max})\n Greatest Decrease by month: ${greatestDec} (Change from prior month $${min})\n Average monthly change: $${totalAverage}
+)}\n Greatest Increase by month: ${greatestInc} (Change from prior month $${max})\n Greatest Decrease by month: ${greatestDec} (Change from prior month $${min})\n Average month to month change: $${totalAverage.toFixed(
+  2
+)}
 `);
