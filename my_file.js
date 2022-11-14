@@ -4,8 +4,11 @@ let monthArray = [];
 let dataArray = [];
 let profitMonths = [];
 let lossMonths = [];
-let min;
-let max;
+let max = 0;
+let min = 0;
+let greatestInc;
+let greatestDec;
+let totalAverage;
 
 let avgChangeArr = [];
 
@@ -17,14 +20,7 @@ for (let i = 0; i < finances.length; i++) {
   } else if (dataArray[i] <= 0) {
     lossMonths.push(dataArray[i]);
   }
-  for (let j = 0; j < finances[i].length; j++) {
-    if (max < finances[j][1]) {
-      max += finances[j][1];
-    }
-  }
 }
-//loop through
-//find largest difference
 
 let totalCalc = function (data) {
   let sum = 0;
@@ -33,7 +29,6 @@ let totalCalc = function (data) {
   }
   return sum;
 };
-// console.log(dataArray);
 
 let avgMOMCalc = function (data) {
   let sum = [];
@@ -43,41 +38,36 @@ let avgMOMCalc = function (data) {
   avgChangeArr = sum;
   return;
 };
-let avgChangeAvg = function (data) {
-  let sum = 0;
-  for (let i = 0; i < data.length; i++) {
-    sum += data[i];
-  }
-  sum = sum / data.length;
-  return sum;
-};
-// function biggestNumberInArray(arr) {
-//   let max = Math.max(...arr);
-//   console.log(max);
-//   return max;
-// }
-
-// let maxminFunction = function (data) {
-//   for (let i = 0; i < data.length; i++);
-
-// };
-
-// maxminFunction(finances);
-
-// let max = biggestNumberInArray(dataArray);
-console.log(max);
-console.log(min);
 
 avgMOMCalc(dataArray);
 avgChangeArr.shift();
-console.log(avgChangeArr);
 
-console.log(avgChangeAvg(avgChangeArr));
+//Increase/decrease
+let avgCal = function (data) {
+  max = Math.max(...data);
+  min = Math.min(...data);
+  greatestInc = finances[avgChangeArr.indexOf(max) + 1];
+  greatestInc.splice(1, 1, ` $${greatestInc[1]}`);
+  greatestInc.join(" ");
+  greatestDec = finances[avgChangeArr.indexOf(min) + 1];
+  greatestDec.splice(1, 1, ` $${greatestDec[1]}`);
+  greatestDec.join(" ");
+  return;
+};
+let overallAvgCal = function (data) {
+  totalAverage = data / avgChangeArr.length;
+  return;
+};
 
-// console.log(avgChangeArr);
+totalAverage = totalCalc(avgChangeArr);
+overallAvgCal(totalAverage);
+avgCal(avgChangeArr);
+//Console log results
 console.log(`Game stats:\n Total Months:${numMonths}\n Total Profitable Months:${
   profitMonths.length
 }\n Total non Profitable Months:${
   lossMonths.length
-}\n Total Profit/Losses: £${totalCalc(dataArray)}
+}\n Total Profit/Losses: £${totalCalc(
+  dataArray
+)}\n Greatest Increase by month: ${greatestInc} (Change from prior month $${max})\n Greatest Decrease by month: ${greatestDec} (Change from prior month $${min})\n Average monthly change: $${totalAverage}
 `);
