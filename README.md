@@ -31,7 +31,7 @@ The information that is required and will be printed is as follows:
 
 The following image shows the web application's console
 
-![The screenshot displays the websites blank page with the console open displaying the information required](images/Console-finances.png)
+![The screenshot displays the websites blank page with the console open displaying the information required](css/Images/Console-finances.png)
 
 ### License
 
